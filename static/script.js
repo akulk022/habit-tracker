@@ -52,3 +52,12 @@ function addHabitToUI(habit) {
 
   document.getElementById('habitList').appendChild(li);
 }
+
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('user_id');
+  window.location.href = '/login';
+});
+
+const username = localStorage.getItem('username');
+document.getElementById('greeting').textContent = `Welcome, ${username}!`;
+

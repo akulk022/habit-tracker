@@ -55,6 +55,7 @@ def serve_index():
 def login_page():
     return render_template('login.html')
 
+
 @app.route('/register')
 def register_page():
     return render_template('register.html')
@@ -83,10 +84,10 @@ def login():
 
     with sqlite3.connect(db_path) as conn:
         c = conn.cursor()
-        c.execute('SELECT id FROM users WHERE username = ? AND password = ?', (username, password))
+        c.execute('SELECT id, username FROM users WHERE username = ? AND password = ?', (username, password))
         row = c.fetchone()
         if row:
-            return jsonify({'user_id': row[0]})
+            return jsonify({'user_id': row[0], 'username': row[1]})
         else:
             return jsonify({'error': 'Invalid credentials'}), 401
 
