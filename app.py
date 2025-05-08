@@ -44,6 +44,15 @@ def init_db():
             )
         ''')
 
+        c.execute('''
+            CREATE TABLE IF NOT EXISTS goals (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id INTEGER NOT NULL,
+                description TEXT NOT NULL,
+                FOREIGN KEY(user_id) REFERENCES users(id)
+            )
+        ''')
+
         conn.commit()
 
 
@@ -141,6 +150,33 @@ def complete_habit(habit_id):
         ''', (user_id, habit_id, today))
         conn.commit()
     return jsonify({'status': 'ok'})
+
+@app.route('/goals', methods=['POST'])
+def add_goal():
+    data = request.get_json()
+    user_id = data['user_id']
+    description = data['description']
+
+    with sqlite3.connect(db_path) as conn:
+        c = conn.cursor()
+        c.execute('INSERT INTO goals (user_id, description) VALUES (?, ?)', (user_id, description))
+        goal_id = c.lastrowid
+        conn.commit()
+
+    return jsonify({'id': goal_id, 'description': description})
+
+@app.route('/goals', methods=['GET'])
+def get_goals():
+    user_id = int(request.args.get('user_id'))
+
+    with sqlite3.connect(db_path) as conn:
+        c = conn.cursor()
+        c.execute('SELECT id, description FROM goals WHERE user_id = ?', (user_id,))
+        rows = c.fetchall()
+        goals = [{'id': row[0], 'description': row[1]} for row in rows]
+
+    return jsonify(goals)
+
 
 
 

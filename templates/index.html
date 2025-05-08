@@ -7,19 +7,57 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div class="container">
-    <button id="logoutBtn">Logout</button>
-    <h2 id="greeting">Hi there!</h2>
+  <div class="dashboard">
 
-    <h1>Habit Tracker</h1>
-    <form id="habitForm">
-      <input type="text" id="habitName" placeholder="Enter habit" required>
-      <button type="submit">Add Habit</button>
-    </form>
+    <!-- Greeting + Streak -->
+    <section class="greeting-panel">
+      <button id="logoutBtn">Logout</button>
+      <h2 id="greeting">Hi there!</h2>
+      <div class="streak-box">
+        <img id="streakCharacter" src="{{ url_for('static', filename='character-neutral.png') }}" alt="Streak Buddy">
+        <p>Current Streak: <span id="streakCount">0</span> days</p>
+      </div>
+    </section>
 
-    <h2>Your Habits</h2>
-    <ul id="habitList" class="dashboard"></ul>
+    <!-- Daily Habits -->
+    <section class="panel habits-panel">
+      <h2>Daily Habits</h2>
+      <form id="habitForm">
+        <input type="text" id="habitName" placeholder="Enter habit" required>
+        <button type="submit">Add Habit</button>
+      </form>
+      <ul id="habitList"></ul>
+    </section>
+
+    <!-- Long-Term Goals -->
+    <section class="panel goals-panel">
+      <h2>Long-Term Goals</h2>
+      <form id="goalForm">
+        <input type="text" id="goalInput" placeholder="Enter long-term goal" required>
+        <button type="submit">Add Goal</button>
+      </form>
+      <ul id="goalList"></ul>
+    </section>
+
+    <!-- Stats -->
+    <section class="panel stats-panel">
+      <h2>Stats Overview</h2>
+      <div class="stat-section">
+        <h3>Weekly Stats</h3>
+        <p>[Placeholder for weekly chart]</p>
+      </div>
+      <div class="stat-section">
+        <h3>Monthly Stats</h3>
+        <p>[Placeholder for monthly chart]</p>
+      </div>
+      <div class="stat-section">
+        <h3>Heatmap</h3>
+        <p>[Placeholder for heatmap]</p>
+      </div>
+    </section>
+
   </div>
+
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

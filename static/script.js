@@ -61,3 +61,37 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 const username = localStorage.getItem('username');
 document.getElementById('greeting').textContent = `Welcome, ${username}!`;
 
+// Load goals on page load
+window.onload = async function () {
+  const res = await fetch(`/habits?user_id=${userId}`);
+  const data = await res.json();
+  data.forEach(addHabitToUI);
+
+  const goalRes = await fetch(`/goals?user_id=${userId}`);
+  const goals = await goalRes.json();
+  goals.forEach(addGoalToUI);
+};
+
+// Add new goal
+document.getElementById('goalForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const description = document.getElementById('goalInput').value;
+
+  const res = await fetch('/goals', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user_id: userId, description })
+  });
+
+  const goal = await res.json();
+  addGoalToUI(goal);
+  document.getElementById('goalInput').value = '';
+});
+
+function addGoalToUI(goal) {
+  const li = document.createElement('li');
+  li.textContent = goal.description;
+  document.getElementById('goalList').appendChild(li);
+}
+
+
