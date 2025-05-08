@@ -68,17 +68,12 @@ window.onload = async function () {
   goals.forEach(addGoalToUI);
 
   // Create heatmap
-  console.log("Building heatmap...");
-
   const heatmapContainer = document.getElementById('heatmapGrid');
-  console.log("Heatmap container found:", heatmapContainer);
-
-  for (let i = 0; i < 49; i++) {
+  for (let i = 0; i < 7 * 53; i++) {  // 7 rows, 53 columns
     const level = Math.ceil(Math.random() * 5);
     const cell = document.createElement('div');
     cell.classList.add(`heat-${level}`);
     heatmapContainer.appendChild(cell);
-    console.log(`Added cell with class: heat-${level}`);
   }
 };
 
