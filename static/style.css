@@ -82,3 +82,35 @@ li {
 #logoutBtn:hover {
   color: #000;
 }
+
+#streakCharacter {
+  width: 200px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.character-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#streakCharacter {
+  width: 150px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+#streakCountBubble {
+  position: absolute;
+  top: 5px;
+  right: -90px;
+  background-color: #ffcc00;
+  color: #000;
+  border-radius: 50%;
+  padding: 20px 24px;       /* ← more padding = bigger bubble */
+  font-size: 1.5rem; 
+  font-weight: bold;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+

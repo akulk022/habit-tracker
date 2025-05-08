@@ -14,9 +14,15 @@
       <button id="logoutBtn">Logout</button>
       <h2 id="greeting">Hi there!</h2>
       <div class="streak-box">
-        <img id="streakCharacter" src="{{ url_for('static', filename='character-neutral.png') }}" alt="Streak Buddy">
-        <p>Current Streak: <span id="streakCount">0</span> days</p>
+        <div class="character-wrapper">
+          <img id="streakCharacter" src="{{ url_for('static', filename='happy.png') }}" alt="Streak Buddy">
+          <div id="streakCountBubble">
+            <span id="streakCount">0</span>🔥
+          </div>
+        </div>
+        <p>Look at your streak!</p>
       </div>
+          
     </section>
 
     <!-- Daily Habits -->
