@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Habit Tracker</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="dashboard">
@@ -48,19 +49,23 @@
     <!-- Stats -->
     <section class="panel stats-panel">
       <h2>Stats Overview</h2>
+    
       <div class="stat-section">
         <h3>Weekly Stats</h3>
-        <p>[Placeholder for weekly chart]</p>
+        <canvas id="weeklyChart" width="400" height="200"></canvas>
       </div>
+    
       <div class="stat-section">
         <h3>Monthly Stats</h3>
-        <p>[Placeholder for monthly chart]</p>
+        <canvas id="monthlyChart" width="400" height="200"></canvas>
       </div>
+    
       <div class="stat-section">
         <h3>Heatmap</h3>
-        <p>[Placeholder for heatmap]</p>
+        <div id="heatmapGrid" class="heatmap-grid"></div>
       </div>
     </section>
+    
 
   </div>
 

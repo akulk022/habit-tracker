@@ -21,12 +21,6 @@ document.getElementById('habitForm').addEventListener('submit', async function(e
   document.getElementById('habitName').value = ''; // Clear input
 });
 
-window.onload = async function () {
-  const res = await fetch(`/habits?user_id=${userId}`); // <-- Fetch user-specific habits
-  const data = await res.json();
-  data.forEach(addHabitToUI);
-};
-
 function addHabitToUI(habit) {
   const li = document.createElement('li');
 
@@ -63,14 +57,31 @@ document.getElementById('greeting').textContent = `Welcome, ${username}!`;
 
 // Load goals on page load
 window.onload = async function () {
+  // Load habits
   const res = await fetch(`/habits?user_id=${userId}`);
   const data = await res.json();
   data.forEach(addHabitToUI);
 
+  // Load goals
   const goalRes = await fetch(`/goals?user_id=${userId}`);
   const goals = await goalRes.json();
   goals.forEach(addGoalToUI);
+
+  // Create heatmap
+  console.log("Building heatmap...");
+
+  const heatmapContainer = document.getElementById('heatmapGrid');
+  console.log("Heatmap container found:", heatmapContainer);
+
+  for (let i = 0; i < 49; i++) {
+    const level = Math.ceil(Math.random() * 5);
+    const cell = document.createElement('div');
+    cell.classList.add(`heat-${level}`);
+    heatmapContainer.appendChild(cell);
+    console.log(`Added cell with class: heat-${level}`);
+  }
 };
+
 
 // Add new goal
 document.getElementById('goalForm').addEventListener('submit', async function(e) {
@@ -93,5 +104,46 @@ function addGoalToUI(goal) {
   li.textContent = goal.description;
   document.getElementById('goalList').appendChild(li);
 }
+
+// Sample weekly chart (7 days)
+const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
+new Chart(weeklyCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    datasets: [{
+      label: 'Completions',
+      data: [2, 3, 4, 1, 5, 3, 6],
+      backgroundColor: '#32cd32'
+    }]
+  },
+  options: {
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+});
+
+// Sample monthly chart (30 days)
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+new Chart(monthlyCtx, {
+  type: 'line',
+  data: {
+    labels: Array.from({length: 30}, (_, i) => `Day ${i + 1}`),
+    datasets: [{
+      label: 'Completions',
+      data: Array.from({length: 30}, () => Math.floor(Math.random() * 6)),
+      borderColor: '#228b22',
+      fill: false,
+      tension: 0.3
+    }]
+  },
+  options: {
+    scales: {
+      y: { beginAtZero: true }
+    }
+  }
+});
+
 
 
